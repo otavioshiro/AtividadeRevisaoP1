@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<form action="javascript:void(0);" method="POST" onsubmit="app.Add()">
+    <input type="text" id="add-nome" placeholder="Nome do veículo">
+    <input type="text" id="add-marca" placeholder="Marca do veículo">
+    <input type="text" id="add-placa" placeholder="Placa do veículo">
+    <input type="submit" value="Add">
+</form>
+
+<body>
+
+    <script>
+        var app = new function () {
+
+            this.veiculos = [];
+            this.el = document.getElementById("list");
+            this.el2 = document.getElementById("list2");
+            this.itemEditar = -1;
+            this.feedback = document.getElementById('feedback');
+
+            //this.FetchAll = function () { //listar todos
+            //    var data = '';
+            //  if (this.veiculos.length > 0) {
+            //        for (i = 0; i < this.veiculos.length; i++) {
+            //            data += '<tr>';
+            //            data += '<td>' + this.veiculos[i] + '</td>';
+            //            data += '<td><button onclick="app.Edit(' + i + ')">Edit</button></td>';
+            //           data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
+            //            data += '</tr>';
+            //        }
+            //    }
+            //    return this.el.innerHTML = data; //volta de todos os dados - ainda não funciona
+            //};
+
+            this.FetchAll = function () { //tentando criar 3 entradas
+                var data1 = '';
+                var data2 = '';
+                var data3 = '';
+                var data4 = '';
+                var i = 0;
+                if (this.veiculos.length > 0) {
+                    for (i = 0; i < this.veiculos.length; i++) {
+                        data1 += '<tr>';
+                        data1 += '<td>' + this.veiculos[i] + '</td>';
+                        data1 += '<td><button onclick="app.edit(' + i + ')">edit</button></td>';
+                        data1 += '<td><button onclick="app.exclude(' + i + ')">exclude</button></td>';
+                        
+                        data2 += '<td>' + this.veiculos[i+1] + '</td>';
+                        data2 += '<td><button onclick="app.edit(' + i + ')">edit</button></td>';
+                        data2 += '<td><button onclick="app.exclude(' + i + ')">exclude</button></td>';
+                        
+                        data3 += '<td>' + this.veiculos[i+2] + '</td>';
+                        data3 += '<td><button onclick="app.edit(' + i + ')">edit</button></td>';
+                        data3 += '<td><button onclick="app.exclude(' + i + ')">exclude</button></td>';
+                        data3 += '<tr>'
+                    }
+                } else {
+                    this.veiculos.splice(this.plate)
+                }
+                this.el.innerHTML = data1;
+                this.el.innerHTML = data2;
+                this.el.innerHTML = data3;
+            }
+
+            this.Add = function () {
+                // Get the value
+                var id = this.veiculos.length + 1;
+                //var info = 'id: ' + id + ' placa: ' + placa + ' marca: ' + marca + ' modelo: ' + modelo;
+
+                var id = document.getElementById("id");
+                var marca = document.getElementById("marca");
+                var modelo = document.getElementById("modelo");
+                var placa = document.getElementById("placa");
+
+                //if (placa && marca && modelo) {
+                if (this.itemEditar == -1) {
+                    //this.veiculos.push(info);
+                    this.veiculos.push(placa);
+                    this.veiculos.push(modelo);
+                    this.veiculos.push(marca);
+                    alert('Veículo cadastrado com sucesso!');
+                } else {
+                    //this.veiculos.splice(this.itemEditar, 1, info.trim());
+                    this.veiculos.splice(this.itemEditar, 1, placa.trim());
+                    this.veiculos.splice(this.itemEditar, 1, marca.trim());
+                    this.veiculos.splice(this.itemEditar, 1, modelo.trim());
+                    this.el2.innerHTML = null;
+                    alert('Veículo alterado com Sucesso!');
+                    this.itemEditar = -1;
+                }
+                this.FetchAll();
+                //}
+                document.getElementById("placa").value = null;
+                document.getElementById("marca").value = null;
+                document.getElementById("modelo").value = null;
+            };
+        }
+    </script>
+
+</body>
+
+</html>
