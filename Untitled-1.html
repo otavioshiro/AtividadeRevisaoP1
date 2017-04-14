@@ -16,7 +16,9 @@
     </style>
 
     <form action="javascript:void(0);" method="POST" onsubmit="global.Add()">
-        <input type="text" id="add-name" placeholder="New country">
+        <input type="text" id="add-name" placeholder="Model">
+        <input type="text" id="add-manufatory" placeholder="Trademark">
+        <input type="text" id="add-plate" placeholder="Plate">
         <input type="submit" value="Add">
     </form>
 
@@ -29,9 +31,9 @@
 
     <p id="counter"></p>
 
-    <table>
+    <table border="1">
         <tr>
-            <th>Name</th>
+            <th>Name</th><th>Manufactory</th><th>Plate</th>
         </tr>
         <tbody id="countries">
         </tbody>
@@ -48,11 +50,18 @@
             console.log("Entrou na página");
 
             this.el = document.getElementById('countries');
+            this.el1 = document.getElementById('vector1');
+            this.el2 = document.getElementById('vector2');
+            this.el3 = document.getElementById('vector3');
             this.countries = [];
             this.vector1 = [];  //marca
             this.vector2 = [];  //Modelo
             this.vector3 = [];  //Placa
-            var id =
+            var id = id+1;
+
+            this.vector1[] = document.getElementById("Model");
+            this.vector2[] = document.getElementById("Trademark");
+
 
                 this.Count = function (data) {
                     var el = document.getElementById('counter');
@@ -71,23 +80,23 @@
                 var dara = '';
                 if (this.countries.length > 0) {
                     for (i = 0; i < this.countries.length; i++) {
-                        data += '<tr>';
+                        
                         data += '<td>' + vector1[i] + '<td>';
                         data += '<td><button onclick="app.Edit(' + i + ')">Edit</button></td>';
                         data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
-                        data += '</tr>';
+                        
 
-                        data += '<tr>';
+                        
                         data += '<td>' + vector2[i] + '<td>';
                         data += '<td><button onclick="app.Edit(' + i + ')">Edit</button></td>';
                         data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
-                        data += '</tr>';
+                        
 
-                        data += '<tr>';
+                        
                         data += '<td>' + vector3[i] + '<td>';
                         data += '<td><button onclick="app.Edit(' + i + ')">Edit</button></td>';
                         data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
-                        data += '</tr>';
+                        
 
                     }
                 }
@@ -101,7 +110,12 @@
                 el = document.getElementById('add-name');
                 var country = el.value;
                 if (country) {
-                    this.countries
+                    this.countries.push(country.trim());
+                    el.value = '';
+                    this.FetchAll();
+                }
+                if(el.getElementById()){
+
                 }
             }
 
