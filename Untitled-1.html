@@ -33,7 +33,9 @@
 
     <table border="1">
         <tr>
-            <th>Name</th><th>Manufactory</th><th>Plate</th>
+            <th>Name</th>
+            <th>Manufactory</th>
+            <th>Plate</th>
         </tr>
         <tbody id="countries">
         </tbody>
@@ -57,66 +59,87 @@
             this.vector1 = [];  //marca
             this.vector2 = [];  //Modelo
             this.vector3 = [];  //Placa
-            var id = id+1;
-
-            this.vector1[] = document.getElementById("Model");
-            this.vector2[] = document.getElementById("Trademark");
+            var id = id + 1;
 
 
-                this.Count = function (data) {
-                    var el = document.getElementById('counter');
-                    var name = 'country';
-                    if (data) {
-                        if (data > 1) {
-                            name = 'countries';
-                        }
-                        el.innerHTML = data + ' ' + name;
-                    } else {
-                        el.innerHTML = 'No ' + name;
+            this.Count = function (data) {
+                console.log("Entrando no método Count");
+                var el = document.getElementById('counter');
+                var name = 'lanche';
+                if (data) {
+                    if (data > 1) {
+                        name = 'lanches';
                     }
-                };
+                    el.innerHTML = data + ' ' + name;
+                } else {
+                    el.innerHTML = 'No ' + name;
+                }
+            };
 
             this.FetchAll = function () {
-                var dara = '';
+                var data = '';
                 if (this.countries.length > 0) {
                     for (i = 0; i < this.countries.length; i++) {
-                        
+
                         data += '<td>' + vector1[i] + '<td>';
-                        data += '<td><button onclick="app.Edit(' + i + ')">Edit</button></td>';
-                        data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
-                        
+                        data += '<td><button onclick="global.Edit(' + i + ')">Edit</button></td>';
+                        data += '<td><button onclick="global.Delete(' + i + ')">Delete</button></td>';
 
-                        
+
+
                         data += '<td>' + vector2[i] + '<td>';
-                        data += '<td><button onclick="app.Edit(' + i + ')">Edit</button></td>';
-                        data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
-                        
+                        data += '<td><button onclick="global.Edit(' + i + ')">Edit</button></td>';
+                        data += '<td><button onclick="global.Delete(' + i + ')">Delete</button></td>';
 
-                        
+
+
                         data += '<td>' + vector3[i] + '<td>';
-                        data += '<td><button onclick="app.Edit(' + i + ')">Edit</button></td>';
-                        data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
-                        
+                        data += '<td><button onclick="global.Edit(' + i + ')">Edit</button></td>';
+                        data += '<td><button onclick="global.Delete(' + i + ')">Delete</button></td>';
+
 
                     }
                 }
+                console.log("Inserirndo no método Count");
                 this.Count(this.vector1.length);
                 this.Count(this.vector2.length);
                 this.Count(this.vector3.length);
                 return this.el.innerHTML = data;
+                return this.el1.innerHTML = data;
+                return this.el2.innerHTML = data;
+                return this.el3.innerHTML = data;
+                
             };
 
             this.Add = function () {
-                el = document.getElementById('add-name');
-                var country = el.value;
-                if (country) {
-                    this.countries.push(country.trim());
-                    el.value = '';
-                    this.FetchAll();
-                }
-                if(el.getElementById()){
+                el1 = document.getElementById('add-name');
+                var lanche1 = el1.value;
+                
+                    this.vector1.push(lanche1.trim());
+                    el1.value = '';
+                    //this.vector1.push(lanche1.trim());
+                    console.log("Está no método Add - el1");
+                
+                
+                    el2 = document.getElementById('add-name');
+                    var lanche2 = el2.value;
 
-                }
+                    this.vector2.push(lanche2.trim());
+                    el2.value = '';
+                    //this.vector2.push(lanche2.trim());
+                    console.log("Está no método Add - el2");
+                
+
+
+                    el3 = document.getElementById('add-name');
+                    var lanche3 = el3.value;
+
+                    this.vector3.push(lanche3.trim());
+                    el3.value = '';
+                    //this.vector3.push(lanche3.trim());
+                    console.log("Está no método Add - el3");
+                
+                this.FetchAll();
             }
 
         }
