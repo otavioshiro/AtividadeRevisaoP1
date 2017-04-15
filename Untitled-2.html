@@ -15,14 +15,16 @@
 <body>
 
 <form action="javascript:void(0);" method="POST" onsubmit="app.Add()"> 
-  <input type="text" id="add-name" placeholder="Novo automóvel">
+  <input type="text" id="add-nome" placeholder="Nome do carro">
+  <input type="text" id="add-marca" placeholder="Marca do carro">
+  <input type="text" id="add-placa" placeholder="Placa do carro">
   <input type="submit" value="Adicionar">
 </form>
 
 <div id="spoiler" role="aria-hidden">
   <form action="javascript:void(0);" method="POST" id="saveEdit">
-    <input type="text" id="edit-name">
-    <input type="submit" value="Edit" /> <a onclick="CloseInput()" aria-label="Close">&#10006;</a>
+    <input type="text" id="edit-nome">
+    <input type="submit" value="Editar" /> <a onclick="CloseInput()" aria-label="Close">&#10006;</a>
   </form>
 </div>
 
@@ -30,7 +32,7 @@
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>Nome </th><th> Marca </th><th> Placa</th>
   </tr>
     <tbody id="carros">
     </tbody>
@@ -39,20 +41,27 @@
 <script>
 var app = new function() {
   this.el = document.getElementById('carros');
-  this.carros = ['Gol','L200','Pajero','Versa','Kombi','City','March','Fox','Corolla','Lancer'];
-  
-  
+  this.carros = [];
+  this.el2 = document.getElementById('nome');
+  this.nome = [];
+  this.el3 = document.getElementById('marca');
+  this.marca = [];
+  this.el4 = document.getElementById('placa');
+  this.placa = [];
+  console.log("criados todos os vetores")
+
   this.Count = function(data) {
     var el   = document.getElementById('counter');
-    var name = 'carro';
+    var nome = 'carro';
     if (data) {
       if (data > 1) {
-        name = 'carros';
+        nome = 'carros';
       }
-      el.innerHTML = data + ' ' + name ;
+      el.innerHTML = data + ' ' + nome ;
     } else {
-      el.innerHTML = 'Sem ' + name;
+      el.innerHTML = 'Sem ' + nome;
     }
+    console.log("passou pelo método Count");
   };
   
   this.FetchAll = function() {
@@ -60,7 +69,7 @@ var app = new function() {
     if (this.carros.length > 0) {
       for (i = 0; i < this.carros.length; i++) {
         data += '<tr>';
-        data += '<td>' + this.carros[i] + '</td>';
+        data += '<td>' + this.carros[i] +'<td>'+ '<td>'+this.nome[i]+'</td>'+'<td>'+this.marca[i]+'</td>'+'<td>'+this.placa[i]+'</td>';
         data += '<td><button onclick="app.Edit(' + i + ')">Editar</button></td>';
         data += '<td><button onclick="app.Delete(' + i + ')">Deletar</button></td>';
         data += '</tr>';
@@ -68,23 +77,36 @@ var app = new function() {
     }
     this.Count(this.carros.length);
     return this.el.innerHTML = data;
+    return this.el2.innerHTML = data;
+    return this.el3.innerHTML = data;
+    console.log("passou pelo método FetchAll");
   };
+
   this.Add = function () {
-    el = document.getElementById('add-name');
+    el = document.getElementById('add-nome');
     // Get the value
-    var carro = el.value;
-    if (carro) {
+    var nome = el.value;
+    
       // Add the new value
-      this.carros.push(carro.trim());
+      this.nome.push(nome.trim());
       window.alert("Cadastrado com sucesso!");
       // Reset input value
       el.value = '';
       // Dislay the new list
       this.FetchAll();
-    }
+      console.log("adicionou nome");
+    
+      el2 = document.getElementById('add-marca');
+      var marca = el2.value;
+      this.marca.push(marca.trim());
+      el2.value = '';
+      this.FetchAll();
+      console.log("adicionou marca");
+    
   };
+
   this.Edit = function (item) {
-    var el = document.getElementById('edit-name');
+    var el = document.getElementById('edit-nome');
     // Display value in the field
     el.value = this.carros[item];
     // Display fields
