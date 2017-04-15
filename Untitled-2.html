@@ -41,6 +41,7 @@ var app = new function() {
   this.el = document.getElementById('carros');
   this.carros = ['Gol','L200','Pajero','Versa','Kombi','City','March','Fox','Corolla','Lancer'];
   
+  
   this.Count = function(data) {
     var el   = document.getElementById('counter');
     var name = 'carro';
@@ -60,8 +61,8 @@ var app = new function() {
       for (i = 0; i < this.carros.length; i++) {
         data += '<tr>';
         data += '<td>' + this.carros[i] + '</td>';
-        data += '<td><button onclick="app.Edit(' + i + ')">Edit</button></td>';
-        data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
+        data += '<td><button onclick="app.Edit(' + i + ')">Editar</button></td>';
+        data += '<td><button onclick="app.Delete(' + i + ')">Deletar</button></td>';
         data += '</tr>';
       }
     }
@@ -71,10 +72,11 @@ var app = new function() {
   this.Add = function () {
     el = document.getElementById('add-name');
     // Get the value
-    var country = el.value;
-    if (country) {
+    var carro = el.value;
+    if (carro) {
       // Add the new value
-      this.carros.push(country.trim());
+      this.carros.push(carro.trim());
+      window.alert("Cadastrado com sucesso!");
       // Reset input value
       el.value = '';
       // Dislay the new list
@@ -90,10 +92,10 @@ var app = new function() {
     self = this;
     document.getElementById('saveEdit').onsubmit = function() {
       // Get value
-      var country = el.value;
-      if (country) {
+      var carro = el.value;
+      if (carro) {
         // Edit value
-        self.carros.splice(item, 1, country.trim());
+        self.carros.splice(item, 1, carro.trim());
         // Display the new list
         self.FetchAll();
         // Hide fields
