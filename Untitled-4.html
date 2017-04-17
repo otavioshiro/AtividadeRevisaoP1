@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD de automóveis</title>
+  <style>
+    input[type='submit'],
+    button,
+    [aria-label] {
+      cursor: pointer;
+    }
+    
+    #spoiler {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form action="javascript:void(0);" method="POST" onsubmit="app.Add()">
+    <input type="text" id="add-nome" placeholder="Nome do carro">
+    <input type="text" id="add-marca" placeholder="Marca do carro">
+    <input type="text" id="add-placa" placeholder="Placa do carro">
+    <input type="submit" value="Salvar">
+  </form>
+
+  <div id="spoiler" role="aria-hidden">
+    <form action="javascript:void(0);" method="POST" id="saveEdit">
+      <input type="text" id="edit-name">
+      <input type="submit" value="Editar" /> <a onclick="CloseInput()" aria-label="Close">&#10006;</a>
+    </form>
+  </div>
+
+  <p id="counter"></p>
+
+  <table>
+    <tr>
+      <th>Nome </th>
+      <th> Marca </th>
+      <th> Placa</th>
+    </tr>
+    <tbody id="carros">
+    </tbody>
+  </table>
+
+  <script>
+    var app = new function () {
+      this.el = document.getElementById('carros');
+      this.carros = ['Sport', 'Cidade', 'Off-road', 'Crossover', 'Muscle', 'SUV'];
+      this.el2 = document.getElementById('nome');
+      this.nomes = ['Skyline', 'City', 'L200', 'Renegade', 'Mustang', 'Tucson'];
+      this.el3 = document.getElementById('marca');
+      this.marcas = ['Nissan', 'Honda', 'Mitsubish', 'Jeep', 'Ford', 'Hyundai'];
+      this.el4 = document.getElementById('placa');
+      this.placas = ['WER 1243', 'ERT 0921', 'QAQ 3444', 'OPP 0987', 'SDS 2312', 'CVF 4544'];
+      console.log("criados todos os vetores")
+
+      this.Count = function (data) {
+        var el = document.getElementById('counter');
+        var nome = 'carro';
+        if (data) {
+          if (data > 1) {
+            nome = 'carros';
+          }
+          el.innerHTML = data + ' ' + nome;
+        } else {
+          el.innerHTML = 'Sem ' + nome;
+        }
+        console.log("passou pelo método Count");
+      };
+
+      this.FetchAll = function () {
+        var data = '';
+        var id = (carros.length + 1);
+        if (this.carros.length > 0) {
+          for (i = 0; i < this.carros.length; i++) {
+            data += '<tr>';
+            //data += '<td>' + this.carros[i] + '<td>' + '<td>' + this.nomes[i] + '</td>' + '<td>' + this.marcas[i] + '</td>' + '<td>' + this.placas[i] + '</td>';
+            data += '<td>' + this.nomes[i]+'</td>'
+            data += '<td>' + this.marcas[i]+'</td>'
+            data += '<td>' + this.placas[i]+'</td>'
+            data += '<td><button onclick="app.Edit(' + i + ')">Editar</button></td>';
+            data += '<td><button onclick="app.Delete(' + i + ')">Deletar</button></td>';
+            data += '</tr>';
+          }
+        }
+        this.Count(this.carros.length);
+        return this.el.innerHTML = data;  //carros
+        return this.el2.innerHTML = data; //nomes
+        return this.el3.innerHTML = data; //marcas
+        return this.el4.innerHTML = data; //placas
+        console.log("inseriu pela tabela de FetchAll");
+      };
+
+      this.Add = function () {
+        /*
+        el2=document.getElementById("add-name");
+        var nome = el2.value;
+        el3=document.getElementById("add-marca");
+        var marca = el3.value;
+        el4=document.getElementById("add-placa");
+        var placa = el4.value;
+        */
+
+        var nome = document.getElementById("add-nome").value;
+        var marca = document.getElementById("add-marca").value;
+        var placa = document.getElementById("add-placa").value;
+
+        if(nome && marca && placa){
+                this.nomes.push(nome.trim());
+                this.marcas.push(marca.trim());
+                this.placas.push(placa.trim());
+                /*
+                el2.value='';
+                el3.value='';
+                el4.value='';
+                */
+                window.alert("Cadastrado com sucesso!");
+        }
+
+        this.FetchAll();
+        console.log("Chamou FatchAll")
+
+      };
+
+      this.Edit = function (item) {
+        this.itemAdd = item;
+        var el2 = document.getElementById('edit-name');
+        // Display value in the field
+        el2.value = this.names[item];
+        // Display fields
+        document.getElementById('spoiler').style.display = 'none';
+        self = this; 
+        document.getElementById('saveEdit').onsubmit = function () {
+          // Get value
+          var nome = el2.value;
+          // Edit value
+          self.nomes.splice(item, 1, nome.trim());
+          // Display the new list
+          self.FetchAll();
+          // Hide fields
+
+          var marca = el3.value;
+          self.marcas.splice(item, 1, marca.trim());
+          self.FetchAll();
+
+          var placa = el4.value;
+          self.placa.splice(item, 1, placa.trim());
+          self.FetchAll();
+          CloseInput();
+          console.log("editou elemento placa");
+        }
+          var el2 = document.getElementById('edit-marca');
+          el2.value = this.marcas[item];
+          document.getElementById('spoiler').style.display = 'block';
+          self = this;
+          document.getElementById('saveEdit').onsubmit = function () {
+          }
+        };
+
+        this.Delete = function (item) {
+          // Delete the current row
+          this.carros.splice(item, 1);
+          // Display the new list
+          console.log("chamou método Delete");
+          this.FetchAll();
+          console.log("Imprimiu após deletar");
+        };
+
+        //iniciando, não finalizado
+        this.Search = function(item){
+          for(i = 0; i < this.placas[item]; i++){
+            if(this.placas[item].equals()){ //início de comparação de busca no vetor de placa em String
+
+            }
+          }
+        }
+
+      }
+      app.FetchAll();
+      console.log("realizou FetchAll fora de function app");
+      function CloseInput() {
+        document.getElementById('spoiler').style.display = 'none';
+      }
+  </script>
+</body>
+
+</html>
