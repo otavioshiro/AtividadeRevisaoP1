@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <table width="100%" border="0">
+        <thead>
+            <tr>
+                <th><input type="text" name="marca" id="marca" placeholder="Marca"></th>
+                <th><input type="text" name="nome" id="nome" placeholder="Nome"></th>
+                <th><input type="text" name="placa" id="placa" placeholder="Placa"></th>
+                <th with="25%"><button type="button" onclick="add(document.getElementById('marca'),document.getElementById('nome'), document.getElementById('placa'));"> + </button></th>
+                <th with="25%"><button type="button" onclick="load(document.getElementById('marca'),document.getElementById('nome'), document.getElementById('placa'));"> Load </button></th>
+                
+            </tr>
+        </thead>
+    </table>
+    <table width="100%" border="0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Marca</th>
+                <th>Nome</th>
+                <th>Placa</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <body>
+        <script>
+            var cars = [];
+
+            var add = function (marca, nome, placa) {
+                var id = (cars.length + 1);
+                cars.push({
+                    'id': id,
+                    'marca': marca.value,
+                    'nome': nome.value,
+                    'placa': placa.value
+                });
+                load(id, marca.value, nome.value, placa.value);
+                marca.value = '';
+                nome.value = '';
+                placa.value = '';
+                alert("Veiculo cadastrado com êxito!");
+                document.getElementById("marca").focus();
+            }
+
+            var load = function (id, marca, nome, placa) {
+                var tbody = document.getElementsByTagName('tbody')[0];
+                var tr = document.createElement('tr');
+                var td0 = document.createElement('td');
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td');
+                var td3 = document.createElement('td');
+                tr.appendChild(td0);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tbody.appendChild(tr);
+                td0.innerHTML = id;
+                td1.innerHTML = marca;
+                td2.innerHTML = nome;
+                td3.innerHTML = placa;
+            }
+
+            
+
+        </script>
+    </body>
+
+</head>
+
+</html>
